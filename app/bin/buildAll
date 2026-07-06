@@ -58,8 +58,8 @@ function configure {
     PARAMETERS='{}'
 
     # locals, these don't leak out
-    local FAMILY_BASE_NAME="Libre Barcode"
-    local FILE_BASENAME="LibreBarcode"
+    local FAMILY_BASE_NAME="Libre Barcode Large"
+    local FILE_BASENAME="LibreBarcodeLarge"
     local STYLE_NAME="Regular"
     local STYLEMAP_STYLE_NAME="regular"
     local VENDOR_ID="GRCR"
@@ -72,11 +72,11 @@ function configure {
     local TARGETS=(CODE39 CODE39TEXT CODE39EXTENDED CODE39EXTENDEDTEXT CODE128 CODE128TEXT)
     if isTarget "$TARGET"; then
         local UNITS_PER_EM=1000
-        local ASCENDER=600
-        local DESCENDER=-400
+        local ASCENDER=1800
+        local DESCENDER=-200
 
-        local X_HEIGHT=400
-        local CAP_HEIGHT=590
+        local X_HEIGHT=1600
+        local CAP_HEIGHT=1600
 
         local VERSION_MAJOR=1
         local VERSION_MINOR=5

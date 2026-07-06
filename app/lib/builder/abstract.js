@@ -532,7 +532,7 @@ define([
         // At the momemnt generic to all barcode fonts:
         force: false // ignore validation problems and just run
       , bottom: 0
-      , top: 590
+      , top: 1600
       , fontBelowHeight: 390
     };
 
