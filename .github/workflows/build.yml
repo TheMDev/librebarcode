@@ -1,0 +1,51 @@
+name: Build Fonts
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Fonts
+    runs-on: ubuntu-24.04
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@d31148d669074a8d0a63714ba94f3201e7020bc3 # v8.3.0
+        with:
+          python-version: "3.9"
+
+      - name: Install Dependencies
+        run: |
+          sudo apt install -y ttfautohint
+          uv sync
+          npm install
+          npx bower install
+
+      - name: Build Fonts
+        run: |
+          uv run ./app/bin/buildAll
+
+      - name: Upload Debug Artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          path: ./sources/*
+
+      - name: Upload Release Artifacts
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "$(date -u +%Y-%m-%dT%H%M%S)" fonts/*
